@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NurseNotes.Model;
-using static NurseNotes.Model.IUsersRepository;
 
 namespace NurseNotes.Context
 {

@@ -1,4 +1,6 @@
-﻿using static NurseNotes.Model.IUsersRepository;
+﻿
+
+using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
 {
