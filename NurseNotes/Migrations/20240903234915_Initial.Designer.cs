@@ -10,7 +10,7 @@ using NurseNotes.Context;
 
 namespace NurseNotes.Migrations
 {
-    [DbContext(typeof(TestDbContext))]
+    [DbContext(typeof(TestDbNurseNotes))]
     [Migration("20240903234915_Initial")]
     partial class Initial
     {
