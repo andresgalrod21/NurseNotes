@@ -11,7 +11,7 @@ using NurseNotes.Context;
 namespace NurseNotes.Migrations
 {
     [DbContext(typeof(TestDbNurseNotes))]
-    partial class TestDbContextModelSnapshot : ModelSnapshot
+    partial class TestDbNurseNotesModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace NurseNotes.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("NurseNotes.Model.IUserRepository+User", b =>
+            modelBuilder.Entity("NurseNotes.Model.Users", b =>
                 {
                     b.Property<int>("USR_ID")
                         .ValueGeneratedOnAdd()
@@ -61,7 +61,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("USR_ID");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }
