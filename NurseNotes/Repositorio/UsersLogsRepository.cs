@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query;
+using NurseNotes.Context;
 using NurseNotes.Model;
 using System.Security.Cryptography.Xml;
 
@@ -8,39 +9,53 @@ namespace NurseNotes.Repositorio
 
     public interface IUsersLogsRepository
     {
-        Task<IEnumerable<UsersLogs>> getallsubjectsAsync();
-        Task<UsersLogs> getsubjectbyIdAsync(int LOG_ID);
-        Task CreateUsersLogsAsync(UsersLogs UsersLogs);
-        Task UpdateUsersLogssync(UsersLogs UsersLogs);
-        Task SoftDeleteUsersLogsAsync(UsersLogs UsersLogs);
+        Task<List<UsersLogs>> GetAll();
+        Task<UsersLogs> GetUsersLog(int LOG_ID);
+        Task<UsersLogs> CreateUsersLog(int LOG_ID, int USR_ID, DateTime FCHMOD, string USRMOD);
+        Task<UsersLogs> GetUsersLogByDocument(int NUMDOC);
+        Task<UsersLogs> CreateUsersLog(UsersLogs usersLogs, string USRMOD);
+        Task<UsersLogs> UpdateUsersLog(UsersLogs usersLogs);
+        Task<UsersLogs> DeleteUsersLog(int LOG_ID);
     }
-    public class UsersLogsRepository
+    public class UsersLogsRepository : IUsersLogsRepository
     {
-        public UsersLogsRepository()
+        private readonly TestDbNurseNotes _db;
+        public UsersLogsRepository(TestDbNurseNotes db)
         {
+            _db = db;
         }
 
-        public Task CreateUsersLogsAsync(UsersLogs UsersLogs)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Users>> getallsubjectsAsync()
+        public Task<UsersLogs> CreateUsersLog(int LOG_ID, int USR_ID, DateTime FCHMOD, string USRMOD)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UsersLogs> getsubjectbyIdAsync(int LOG_ID)
+        public Task<UsersLogs> CreateUsersLog(UsersLogs usersLogs, string USRMOD)
         {
             throw new NotImplementedException();
         }
 
-        public Task SoftDeleteUsersAsync(UsersLogs UsersLogs)
+        public Task<UsersLogs> DeleteUsersLog(int LOG_ID)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateUsersLogsAsync(UsersLogs UsersLogs)
+        public Task<List<UsersLogs>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UsersLogs> GetUsersLog(int LOG_ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UsersLogs> GetUsersLogByDocument(int NUMDOC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UsersLogs> UpdateUsersLog(UsersLogs usersLogs)
         {
             throw new NotImplementedException();
         }

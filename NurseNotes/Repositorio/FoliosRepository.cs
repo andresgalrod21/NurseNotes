@@ -1,42 +1,58 @@
-﻿using NurseNotes.Model;
+﻿using NurseNotes.Context;
+using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
 {
     public interface IFoliosRepository
     {
-        Task<IEnumerable<Folios>> getallsubjectsAsync();
-        Task<Folios> getsubjectbyIdAsync(int FOLIO_ID);
-        Task CreateFoliosAsync(Folios Folios);
-        Task UpdateFoliosAsync(Folios Folios);
-        Task SoftDeleteFoliosAsync(Folios Folios);
+        Task<List<Folios>> GetAll();
+        Task<Folios> GetFolio(int FOLIO_ID);
+        Task<Folios> CreateFolio(int FOLIO_ID, int INCOME_ID, int NOTE_ID, /*int SUP_ID,*/ int USR_ID, string? EVOLUTION);
+        Task<Folios> GetFolioByDocument(int NOTE_ID);
+        Task<Folios> CreateFolio(Folios folios, string EVOLUTION);
+        Task<Folios> UpdateFolio(Folios folios);
+        Task<Folios> DeleteFolio(int FOLIO_ID);
     }
-    public class FoliosRepository
+    public class FoliosRepository : IFoliosRepository
     {
-        public FoliosRepository()
+        private readonly TestDbNurseNotes _db;
+
+        public FoliosRepository(TestDbNurseNotes db)
         {
+            _db = db;
         }
 
-        public Task CreateFoliosAsync(Folios Folios)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Folios>> getallsubjectsAsync()
+        public Task<Folios> CreateFolio(int FOLIO_ID, int INCOME_ID, int NOTE_ID, int USR_ID, string? EVOLUTION)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Folios> getsubjectbyIdAsync(int FOLIO_ID)
+        public Task<Folios> CreateFolio(Folios folios, string EVOLUTION)
         {
             throw new NotImplementedException();
         }
 
-        public Task SoftDeleteFoliosAsync(Folios Folios)
+        public Task<Folios> DeleteFolio(int FOLIO_ID)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateFoliosAsync(Folios Folios)
+        public Task<List<Folios>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Folios> GetFolio(int FOLIO_ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Folios> GetFolioByDocument(int NOTE_ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Folios> UpdateFolio(Folios folios)
         {
             throw new NotImplementedException();
         }

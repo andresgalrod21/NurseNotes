@@ -1,42 +1,58 @@
-﻿using NurseNotes.Model;
+﻿using NurseNotes.Context;
+using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
 {
     public interface INurseNoteRepository
     {
-        Task<IEnumerable<NurseNote>> getallsubjectsAsync();
-        Task<NurseNote> getsubjectbyIdAsync(int NOTE_ID);
-        Task CreateNurseNoteAsync(NurseNote NurseNote);
-        Task UpdateNurseNoteAsync(NurseNote NurseNote);
-        Task SoftDeleteNurseNoteAsync(NurseNote NurseNote);
+        Task<List<NurseNote>> GetAll();
+        Task<NurseNote> GetNote(int NOTE_ID);
+        Task<NurseNote> CreateNote(int NOTE_ID, int INCOME_ID, int PATIENT_ID, string REASONCONS, int DIAG_ID, int SPEC_ID, int USR_ID, int STAFF_ID);
+        Task<NurseNote> GetNoteByDocument(int NUMDOC);
+        Task<NurseNote> CreateNote(NurseNote nurseNote, string REASONCONS);
+        Task<NurseNote> UpdateNote(NurseNote nurseNote);
+        Task<NurseNote> DeleteNote(int NOTE_ID);
     }
-    public class NurseNoteRepository
+    public class NurseNoteRepository : INurseNoteRepository
     {
-        public NurseNoteRepository()
+        private readonly TestDbNurseNotes _db;
+
+        public NurseNoteRepository(TestDbNurseNotes DB)
         {
+            _db = DB;
         }
 
-        public Task CreateNurseNoteAsync(NurseNote NurseNote)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<NurseNote>> getallsubjectsAsync()
+        public Task<NurseNote> CreateNote(int NOTE_ID, int INCOME_ID, int PATIENT_ID, string REASONCONS, int DIAG_ID, int SPEC_ID, int USR_ID, int STAFF_ID)
         {
             throw new NotImplementedException();
         }
 
-        public Task<NurseNote> getsubjectbyIdAsync(int NOTE_ID)
+        public Task<NurseNote> CreateNote(NurseNote nurseNote, string REASONCONS)
         {
             throw new NotImplementedException();
         }
 
-        public Task SoftDeleteNurseNoteAsync(NurseNote NurseNote)
+        public Task<NurseNote> DeleteNote(int NOTE_ID)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateNurseNoteAsync(NurseNote NurseNote)
+        public Task<List<NurseNote>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<NurseNote> GetNote(int NOTE_ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<NurseNote> GetNoteByDocument(int NUMDOC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<NurseNote> UpdateNote(NurseNote nurseNote)
         {
             throw new NotImplementedException();
         }

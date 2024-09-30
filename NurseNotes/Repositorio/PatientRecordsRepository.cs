@@ -1,42 +1,57 @@
-﻿using NurseNotes.Model;
+﻿using NurseNotes.Context;
+using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
 {
     public interface IPatientRecordsRepository
     {
-        Task<IEnumerable<PatientRecords>> getallsubjectsAsync();
-        Task<PatientRecords> getsubjectbyIdAsync(int PATR_ID);
-        Task CreatePatientRecordsAsync(PatientRecords PatientRecords);
-        Task UpdatePatientRecordsAsync(PatientRecords PatientRecords);
-        Task SoftDeletePatientRecordsAsync(PatientRecords PatientRecords);
+        Task<List<PatientRecords>> GetAll();
+        Task<PatientRecords> GetPatientRecord(int PATR_ID);
+        Task<PatientRecords> CreatePatientRecord(int PATR_ID, string RH, bool? ALLERGIES, string? ALLERG_DSC, bool? SURGERIES, string? SURGER_DSC, int INCOME_ID);
+        Task<PatientRecords> GetPatientRecordByRH(int RH);
+        Task<PatientRecords> CreatePatientRecord(PatientRecords patientRecords, string RH);
+        Task<PatientRecords> UpdatePatientRecord(PatientRecords patientRecords);
+        Task<PatientRecords> DeletePatientRecord(int PATR_ID);
     }
-    public class PatientRecordsRepository
+    public class PatientRecordsRepository : IPatientRecordsRepository
     {
-        public PatientRecordsRepository() 
+        private readonly TestDbNurseNotes _db;
+        public PatientRecordsRepository(TestDbNurseNotes db) 
         { 
+            _db = db;
         }
 
-        public Task CreatePatientRecordsAsync(PatientRecords PatientRecords)
+        public Task<PatientRecords> CreatePatientRecord(int PATR_ID, string RH, bool? ALLERGIES, string? ALLERG_DSC, bool? SURGERIES, string? SURGER_DSC, int INCOME_ID)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<PatientRecords>> getallsubjectsAsync()
+        public Task<PatientRecords> CreatePatientRecord(PatientRecords patientRecords, string RH)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PatientRecords> getsubjectbyIdAsync(int PATR_ID)
+        public Task<PatientRecords> DeletePatientRecord(int PATR_ID)
         {
             throw new NotImplementedException();
         }
 
-        public Task SoftDeletePatientRecordsAsync(PatientRecords PatientRecords)
+        public Task<List<PatientRecords>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdatePatientRecordsAsync(PatientRecords PatientRecords)
+        public Task<PatientRecords> GetPatientRecord(int PATR_ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PatientRecords> GetPatientRecordByRH(int RH)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PatientRecords> UpdatePatientRecord(PatientRecords patientRecords)
         {
             throw new NotImplementedException();
         }
