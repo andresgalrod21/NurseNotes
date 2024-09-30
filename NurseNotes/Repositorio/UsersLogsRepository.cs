@@ -35,7 +35,7 @@ namespace NurseNotes.Repositorio
             throw new NotImplementedException();
         }
 
-        public Task<UsersLogs> DeleteUsersLog(int LOG_ID)
+        public Task<UsersLogs> DeleteUsersLog(int LOG_ID) 
         {
             throw new NotImplementedException();
         }
