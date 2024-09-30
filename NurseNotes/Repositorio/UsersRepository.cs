@@ -1,6 +1,4 @@
-﻿
-
-using NurseNotes.Model;
+﻿using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
 {
