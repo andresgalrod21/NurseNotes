@@ -9,7 +9,6 @@ namespace NurseNotes.Repositorio
         Task<Patients> GetPatient(int PATIENT_ID);
         Task<Patients> CreatePatient(int PATIENT_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, int AGE, int NUMCONTACT, string? MAIL);
         Task<Patients> GetPatientByDocument(int NUMDOC);
-        Task<Patients> CreatePatient(Patients patients, string NAME, string LASTNAME);
         Task<Patients> UpdatePatient(Patients patients);
         Task<Patients> DeletePatient(int PATIENT_ID);
 
@@ -23,11 +22,6 @@ namespace NurseNotes.Repositorio
         }
 
         public Task<Patients> CreatePatient(int PATIENT_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, int AGE, int NUMCONTACT, string? MAIL)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Patients> CreatePatient(Patients patients, string NAME, string LASTNAME)
         {
             throw new NotImplementedException();
         }
