@@ -7,7 +7,7 @@ namespace NurseNotes.Repositorio
     {
         Task<List<Folios>> GetAll();
         Task<Folios> GetFolio(int FOLIO_ID);
-        Task<Folios> CreateFolio(int FOLIO_ID, int INCOME_ID, int NOTE_ID, /*int SUP_ID,*/ int USR_ID, string? EVOLUTION);
+        Task<Folios> CreateFolio(int FOLIO_ID, int INCOME_ID, int NOTE_ID, int SUP_ID, int USR_ID, string? EVOLUTION);
         Task<Folios> GetFolioByDocument(int NOTE_ID);
         Task<Folios> UpdateFolio(Folios folios);
         Task<Folios> DeleteFolio(int FOLIO_ID);
@@ -21,7 +21,7 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<Folios> CreateFolio(int FOLIO_ID, int INCOME_ID, int NOTE_ID, int USR_ID, string? EVOLUTION)
+        public Task<Folios> CreateFolio(int FOLIO_ID, int INCOME_ID, int NOTE_ID, int SUP_ID, int USR_ID, string? EVOLUTION)
         {
             throw new NotImplementedException();
         }

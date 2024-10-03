@@ -12,7 +12,7 @@ namespace NurseNotes.Repositorio
         Task<List<UsersLogs>> GetAll();
         Task<UsersLogs> GetUsersLog(int LOG_ID);
         Task<UsersLogs> CreateUsersLog(int LOG_ID, int USR_ID, DateTime FCHMOD, string USRMOD);
-        Task<UsersLogs> GetUsersLogByDocument(int NUMDOC);
+        Task<UsersLogs> GetUsersLogByUsrMod(int USRMOD);
         Task<UsersLogs> UpdateUsersLog(UsersLogs usersLogs);
         Task<UsersLogs> DeleteUsersLog(int LOG_ID);
     }
@@ -44,7 +44,7 @@ namespace NurseNotes.Repositorio
             throw new NotImplementedException();
         }
 
-        public Task<UsersLogs> GetUsersLogByDocument(int NUMDOC)
+        public Task<UsersLogs> GetUsersLogByUsrMod(int NUMDOC)
         {
             throw new NotImplementedException();
         }

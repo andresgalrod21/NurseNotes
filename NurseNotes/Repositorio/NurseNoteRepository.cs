@@ -8,7 +8,7 @@ namespace NurseNotes.Repositorio
         Task<List<NurseNote>> GetAll();
         Task<NurseNote> GetNote(int NOTE_ID);
         Task<NurseNote> CreateNote(int NOTE_ID, int INCOME_ID, int PATIENT_ID, string REASONCONS, int DIAG_ID, int SPEC_ID, int USR_ID, int STAFF_ID);
-        Task<NurseNote> GetNoteByDocument(int NUMDOC);
+        //Task<NurseNote> GetNoteByxxxx(int );
         Task<NurseNote> UpdateNote(NurseNote nurseNote);
         Task<NurseNote> DeleteNote(int NOTE_ID);
     }
