@@ -268,7 +268,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("TipDocsTIPDOC_ID");
 
-                    b.ToTable("Patient");
+                    b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.PerXGroups", b =>
@@ -425,7 +425,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("TIPDOC_ID");
 
-                    b.ToTable("TipDoc");
+                    b.ToTable("TipDocs");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Users", b =>

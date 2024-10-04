@@ -13,8 +13,7 @@ namespace NurseNotes.Context
 
         public DbSet<Users> Users { get; set; }
         public DbSet<UsersLogs> UsersLogs { get; set; }
-        public DbSet<TipDocs> TipDoc { get; set; }
-        public DbSet<Patients> Patient { get; set; }
+        public DbSet<Patients> Patients { get; set; }
         public DbSet<NurseNote> NurseNotes { get; set; }
         public DbSet<PatientRecords> PatientRecords { get; set; }
         public DbSet<Diagnosis> Diagnosis { get; set; }
