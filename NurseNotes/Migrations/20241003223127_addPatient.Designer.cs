@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NurseNotes.Context;
 
@@ -11,9 +12,11 @@ using NurseNotes.Context;
 namespace NurseNotes.Migrations
 {
     [DbContext(typeof(TestDbNurseNotes))]
-    partial class TestDbNurseNotesModelSnapshot : ModelSnapshot
+    [Migration("20241003223127_addPatient")]
+    partial class addPatient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -425,7 +428,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("TIPDOC_ID");
 
-                    b.ToTable("TipDoc");
+                    b.ToTable("tipDoc");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Users", b =>
