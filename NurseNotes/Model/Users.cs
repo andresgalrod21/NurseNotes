@@ -11,7 +11,7 @@
             public required string USRPSW { get; set; }
             public required string USR { get; set; }
             public required DateTime FCHCREATION { get; set; }
-            public int GRP_ID { get; set; }
-        }
+            public required Groups Groups { get; set; }
+    }
     
 }
