@@ -50,22 +50,27 @@ namespace NurseNotes.Migrations
                     b.Property<string>("EVOLUTION")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IncomesINCOME_ID")
+                    b.Property<int>("INCOME_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("NurseNoteNOTE_ID")
+                    b.Property<int>("NOTE_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersUSR_ID")
+                    b.Property<int>("SUP_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("USR_ID")
                         .HasColumnType("int");
 
                     b.HasKey("FOLIO_ID");
 
-                    b.HasIndex("IncomesINCOME_ID");
+                    b.HasIndex("INCOME_ID");
 
-                    b.HasIndex("NurseNoteNOTE_ID");
+                    b.HasIndex("NOTE_ID");
 
-                    b.HasIndex("UsersUSR_ID");
+                    b.HasIndex("SUP_ID");
+
+                    b.HasIndex("USR_ID");
 
                     b.ToTable("Folios");
                 });
@@ -117,17 +122,22 @@ namespace NurseNotes.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("PatientsPATIENT_ID")
+                    b.Property<int>("PATIENT_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersUSR_ID")
+                    b.Property<int>("TIPDOC_ID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("USR_ID")
                         .HasColumnType("int");
 
                     b.HasKey("INCOME_ID");
 
-                    b.HasIndex("PatientsPATIENT_ID");
+                    b.HasIndex("PATIENT_ID");
 
-                    b.HasIndex("UsersUSR_ID");
+                    b.HasIndex("TIPDOC_ID");
+
+                    b.HasIndex("USR_ID");
 
                     b.ToTable("Incomes");
                 });
@@ -160,41 +170,41 @@ namespace NurseNotes.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NOTE_ID"));
 
-                    b.Property<int>("DiagnosisDIAG_ID")
+                    b.Property<int>("DIAG_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("IncomesINCOME_ID")
+                    b.Property<int>("INCOME_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PatientsPATIENT_ID")
+                    b.Property<int>("PATIENT_ID")
                         .HasColumnType("int");
 
                     b.Property<string>("REASONCONS")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SPEC_ID")
+                        .HasColumnType("int");
+
                     b.Property<int>("STAFF_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("SpecialitiesSPEC_ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersUSR_ID")
+                    b.Property<int>("USR_ID")
                         .HasColumnType("int");
 
                     b.HasKey("NOTE_ID");
 
-                    b.HasIndex("DiagnosisDIAG_ID");
+                    b.HasIndex("DIAG_ID");
 
-                    b.HasIndex("IncomesINCOME_ID");
+                    b.HasIndex("INCOME_ID");
 
-                    b.HasIndex("PatientsPATIENT_ID");
+                    b.HasIndex("PATIENT_ID");
+
+                    b.HasIndex("SPEC_ID");
 
                     b.HasIndex("STAFF_ID");
 
-                    b.HasIndex("SpecialitiesSPEC_ID");
-
-                    b.HasIndex("UsersUSR_ID");
+                    b.HasIndex("USR_ID");
 
                     b.ToTable("NurseNotes");
                 });
@@ -213,7 +223,7 @@ namespace NurseNotes.Migrations
                     b.Property<string>("ALLERG_DSC")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IncomesINCOME_ID")
+                    b.Property<int>("INCOME_ID")
                         .HasColumnType("int");
 
                     b.Property<string>("RH")
@@ -228,7 +238,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("PATR_ID");
 
-                    b.HasIndex("IncomesINCOME_ID");
+                    b.HasIndex("INCOME_ID");
 
                     b.ToTable("PatientRecords");
                 });
@@ -261,12 +271,12 @@ namespace NurseNotes.Migrations
                     b.Property<int>("NUMDOC")
                         .HasColumnType("int");
 
-                    b.Property<int>("TipDocsTIPDOC_ID")
+                    b.Property<int>("TIPDOC_ID")
                         .HasColumnType("int");
 
                     b.HasKey("PATIENT_ID");
 
-                    b.HasIndex("TipDocsTIPDOC_ID");
+                    b.HasIndex("TIPDOC_ID");
 
                     b.ToTable("Patients");
                 });
@@ -279,17 +289,17 @@ namespace NurseNotes.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PG_ID"));
 
-                    b.Property<int>("GroupsGRP_ID")
+                    b.Property<int>("GRP_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("PermitionsPER_ID")
+                    b.Property<int>("PER_ID")
                         .HasColumnType("int");
 
                     b.HasKey("PG_ID");
 
-                    b.HasIndex("GroupsGRP_ID");
+                    b.HasIndex("GRP_ID");
 
-                    b.HasIndex("PermitionsPER_ID");
+                    b.HasIndex("PER_ID");
 
                     b.ToTable("PerXGroups");
                 });
@@ -361,26 +371,26 @@ namespace NurseNotes.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("STAFF_ID"));
 
-                    b.Property<int>("HeadqueartersHEADQ_ID")
+                    b.Property<int>("HEADQ_ID")
                         .HasColumnType("int");
 
                     b.Property<string>("MEDSTAFF")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SpecialitiesSPEC_ID")
+                    b.Property<int>("SPEC_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersUSR_ID")
+                    b.Property<int>("USR_ID")
                         .HasColumnType("int");
 
                     b.HasKey("STAFF_ID");
 
-                    b.HasIndex("HeadqueartersHEADQ_ID");
+                    b.HasIndex("HEADQ_ID");
 
-                    b.HasIndex("SpecialitiesSPEC_ID");
+                    b.HasIndex("SPEC_ID");
 
-                    b.HasIndex("UsersUSR_ID");
+                    b.HasIndex("USR_ID");
 
                     b.ToTable("Staffs");
                 });
@@ -396,17 +406,17 @@ namespace NurseNotes.Migrations
                     b.Property<int>("CANTSUP")
                         .HasColumnType("int");
 
-                    b.Property<int>("IncomesINCOME_ID")
+                    b.Property<int>("INCOME_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("MedicationsMED_ID")
+                    b.Property<int>("MED_ID")
                         .HasColumnType("int");
 
                     b.HasKey("SUP_ID");
 
-                    b.HasIndex("IncomesINCOME_ID");
+                    b.HasIndex("INCOME_ID");
 
-                    b.HasIndex("MedicationsMED_ID");
+                    b.HasIndex("MED_ID");
 
                     b.ToTable("SuppliesPatients");
                 });
@@ -441,7 +451,7 @@ namespace NurseNotes.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("GroupsGRP_ID")
+                    b.Property<int>("GRP_ID")
                         .HasColumnType("int");
 
                     b.Property<string>("LASTNAME")
@@ -469,7 +479,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("USR_ID");
 
-                    b.HasIndex("GroupsGRP_ID");
+                    b.HasIndex("GRP_ID");
 
                     b.ToTable("Users");
                 });
@@ -491,12 +501,12 @@ namespace NurseNotes.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UsersUSR_ID")
+                    b.Property<int>("USR_ID")
                         .HasColumnType("int");
 
                     b.HasKey("LOG_ID");
 
-                    b.HasIndex("UsersUSR_ID");
+                    b.HasIndex("USR_ID");
 
                     b.ToTable("UsersLogs");
                 });
@@ -505,25 +515,33 @@ namespace NurseNotes.Migrations
                 {
                     b.HasOne("NurseNotes.Model.Incomes", "Incomes")
                         .WithMany()
-                        .HasForeignKey("IncomesINCOME_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("INCOME_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.NurseNote", "NurseNote")
                         .WithMany()
-                        .HasForeignKey("NurseNoteNOTE_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("NOTE_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("NurseNotes.Model.SuppliesPatients", "SuppliesPatients")
+                        .WithMany()
+                        .HasForeignKey("SUP_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Users", "Users")
                         .WithMany()
-                        .HasForeignKey("UsersUSR_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("USR_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Incomes");
 
                     b.Navigation("NurseNote");
+
+                    b.Navigation("SuppliesPatients");
 
                     b.Navigation("Users");
                 });
@@ -532,17 +550,25 @@ namespace NurseNotes.Migrations
                 {
                     b.HasOne("NurseNotes.Model.Patients", "Patients")
                         .WithMany()
-                        .HasForeignKey("PatientsPATIENT_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("PATIENT_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("NurseNotes.Model.TipDocs", "TipDocs")
+                        .WithMany()
+                        .HasForeignKey("TIPDOC_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Users", "Users")
                         .WithMany()
-                        .HasForeignKey("UsersUSR_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("USR_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Patients");
+
+                    b.Navigation("TipDocs");
 
                     b.Navigation("Users");
                 });
@@ -551,38 +577,38 @@ namespace NurseNotes.Migrations
                 {
                     b.HasOne("NurseNotes.Model.Diagnosis", "Diagnosis")
                         .WithMany()
-                        .HasForeignKey("DiagnosisDIAG_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("DIAG_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Incomes", "Incomes")
                         .WithMany()
-                        .HasForeignKey("IncomesINCOME_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("INCOME_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Patients", "Patients")
                         .WithMany()
-                        .HasForeignKey("PatientsPATIENT_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("PATIENT_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("NurseNotes.Model.Specialities", "Specialities")
+                        .WithMany()
+                        .HasForeignKey("SPEC_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Staff", "Staff")
                         .WithMany()
                         .HasForeignKey("STAFF_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NurseNotes.Model.Specialities", "Specialities")
-                        .WithMany()
-                        .HasForeignKey("SpecialitiesSPEC_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Users", "Users")
                         .WithMany()
-                        .HasForeignKey("UsersUSR_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("USR_ID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Diagnosis");
@@ -602,7 +628,7 @@ namespace NurseNotes.Migrations
                 {
                     b.HasOne("NurseNotes.Model.Incomes", "Incomes")
                         .WithMany()
-                        .HasForeignKey("IncomesINCOME_ID")
+                        .HasForeignKey("INCOME_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -613,7 +639,7 @@ namespace NurseNotes.Migrations
                 {
                     b.HasOne("NurseNotes.Model.TipDocs", "TipDocs")
                         .WithMany()
-                        .HasForeignKey("TipDocsTIPDOC_ID")
+                        .HasForeignKey("TIPDOC_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -624,13 +650,13 @@ namespace NurseNotes.Migrations
                 {
                     b.HasOne("NurseNotes.Model.Groups", "Groups")
                         .WithMany()
-                        .HasForeignKey("GroupsGRP_ID")
+                        .HasForeignKey("GRP_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Permitions", "Permitions")
                         .WithMany()
-                        .HasForeignKey("PermitionsPER_ID")
+                        .HasForeignKey("PER_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -654,19 +680,19 @@ namespace NurseNotes.Migrations
                 {
                     b.HasOne("NurseNotes.Model.Headquearters", "Headquearters")
                         .WithMany()
-                        .HasForeignKey("HeadqueartersHEADQ_ID")
+                        .HasForeignKey("HEADQ_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Specialities", "Specialities")
                         .WithMany()
-                        .HasForeignKey("SpecialitiesSPEC_ID")
+                        .HasForeignKey("SPEC_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Users", "Users")
                         .WithMany()
-                        .HasForeignKey("UsersUSR_ID")
+                        .HasForeignKey("USR_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -681,13 +707,13 @@ namespace NurseNotes.Migrations
                 {
                     b.HasOne("NurseNotes.Model.Incomes", "Incomes")
                         .WithMany()
-                        .HasForeignKey("IncomesINCOME_ID")
+                        .HasForeignKey("INCOME_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("NurseNotes.Model.Medications", "Medications")
                         .WithMany()
-                        .HasForeignKey("MedicationsMED_ID")
+                        .HasForeignKey("MED_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -698,20 +724,20 @@ namespace NurseNotes.Migrations
 
             modelBuilder.Entity("NurseNotes.Model.Users", b =>
                 {
-                    b.HasOne("NurseNotes.Model.Groups", "Groups")
+                    b.HasOne("NurseNotes.Model.Groups", "Group")
                         .WithMany()
-                        .HasForeignKey("GroupsGRP_ID")
+                        .HasForeignKey("GRP_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Groups");
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.UsersLogs", b =>
                 {
                     b.HasOne("NurseNotes.Model.Users", "Users")
                         .WithMany()
-                        .HasForeignKey("UsersUSR_ID")
+                        .HasForeignKey("USR_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

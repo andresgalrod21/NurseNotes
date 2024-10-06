@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
+using Microsoft.EntityFrameworkCore.Query;
 using NurseNotes.Model;
+using System.Globalization;
 
 namespace NurseNotes.Context
 {
@@ -44,6 +46,7 @@ namespace NurseNotes.Context
                     entity.Property(u => u.FCHCREATION)
                       .HasDefaultValueSql("GETDATE()") 
                       .ValueGeneratedOnAdd();
+                   
                 });
          
             //USERLOGS
@@ -66,10 +69,38 @@ namespace NurseNotes.Context
             modelBuilder.Entity<NurseNote>(entity =>
             {
                 entity.HasKey(nn => nn.NOTE_ID);
+
+                entity.HasOne(nn => nn.Incomes)
+                .WithMany()
+                .HasForeignKey(nn => nn.INCOME_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(nn => nn.Patients)
+                .WithMany()
+                .HasForeignKey(nn => nn.PATIENT_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(nn => nn.Diagnosis)
+                .WithMany()
+                .HasForeignKey(nn => nn.DIAG_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(nn => nn.Specialities)
+                .WithMany()
+                .HasForeignKey(nn => nn.SPEC_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(nn => nn.Users)
+                .WithMany()
+                .HasForeignKey(nn => nn.USR_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(nn => nn.Staff)
+                .WithMany()
+                .HasForeignKey(nn => nn.STAFF_ID)
+                .OnDelete(DeleteBehavior.Restrict);
             });
-         
-         
-         
+          
             //PATIENTRECORDS
             modelBuilder.Entity<PatientRecords>(entity =>
             {
@@ -80,6 +111,26 @@ namespace NurseNotes.Context
             modelBuilder.Entity<Folios>(entity =>
             {
                 entity.HasKey(fl => fl.FOLIO_ID);
+
+                entity.HasOne(fl => fl.Incomes)
+                .WithMany()
+                .HasForeignKey(fl => fl.INCOME_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(fl => fl.NurseNote)
+                .WithMany()
+                .HasForeignKey(fl => fl.NOTE_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(fl => fl.SuppliesPatients)
+                .WithMany()
+                .HasForeignKey(fl => fl.SUP_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(fl => fl.Users)
+                .WithMany()
+                .HasForeignKey(fl => fl.USR_ID)
+                .OnDelete(DeleteBehavior.Restrict);
             });
 
             //DIAGNOSIS
@@ -108,6 +159,21 @@ namespace NurseNotes.Context
                 entity.Property(incc => incc.FCHINCOME)
                       .HasDefaultValueSql("GETDATE()")
                       .ValueGeneratedOnAdd();
+
+                entity.HasOne(inc => inc.TipDocs)
+                .WithMany()
+                .HasForeignKey(inc => inc.TIPDOC_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(inc => inc.Patients)
+                .WithMany()
+                .HasForeignKey(inc => inc.PATIENT_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(inc => inc.Users)
+                .WithMany()
+                .HasForeignKey(inc => inc.USR_ID)
+                .OnDelete(DeleteBehavior.Restrict);
             });
 
             //MEDICATIONS
