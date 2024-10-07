@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -8,7 +9,6 @@ namespace NurseNotes.Repositorio
         Task<List<Groups>> GetAll();
         Task<Groups> GetGroup(int GRP_ID);
         Task<Groups> CreateGroup(int GRP_ID, string GRPDSC);
-        Task<Groups> GetGroupByGrpDsc(int GRPDSC);
         Task<Groups> UpdateGroup(Groups groups);
         Task<Groups> DeleteGroup(int GRP_ID);
 
@@ -21,34 +21,44 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<Groups> CreateGroup(int GRP_ID, string GRPDSC)
+        public async Task<List<Groups>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.Groups.ToListAsync();
         }
 
-        public Task<Groups> DeleteGroup(int GRP_ID)
+        public async Task<Groups> GetGroup(int GRP_ID)
         {
-            throw new NotImplementedException();
+            return await _db.Groups.FirstOrDefaultAsync(g => g.GRP_ID == GRP_ID);
         }
 
-        public Task<List<Groups>> GetAll()
+        public async Task<Groups> CreateGroup(int GRP_ID, string GRPDSC)
         {
-            throw new NotImplementedException();
+            Groups newGroup = new Groups
+            {
+                GRP_ID = GRP_ID,
+                GRPDSC = GRPDSC
+            };
+
+            await _db.Groups.AddAsync(newGroup);
+            await _db.SaveChangesAsync();
+
+            return newGroup;
         }
 
-        public Task<Groups> GetGroup(int GRP_ID)
+        public async Task<Groups> UpdateGroup(Groups groups)
         {
-            throw new NotImplementedException();
+            _db.Groups.Update(groups);
+            await _db.SaveChangesAsync();
+            return groups;
         }
 
-        public Task<Groups> GetGroupByGrpDsc(int GRPDSC)
+        public async Task<Groups> DeleteGroup(int GRP_ID)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Groups> UpdateGroup(Groups groups)
-        {
-            throw new NotImplementedException();
+            Groups group = await GetGroup(GRP_ID);          
+            _db.Groups.Remove(group);
+            await _db.SaveChangesAsync();
+            
+            return group;
         }
     }
 }

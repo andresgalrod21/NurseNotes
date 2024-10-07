@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -6,11 +7,10 @@ namespace NurseNotes.Repositorio
     public interface IMedicationsRepository
     {
         Task<List<Medications>> GetAll();
-        Task<Medications> GetMedication(int USR_ID);
-        Task<Medications> CreateMedication(int USR_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, string USRPSW, string USR, DateTime FCHCREATION);
-        Task<Medications> GetMedicationByDocument(int NUMDOC);
+        Task<Medications> GetMedication(int MED_ID);
+        Task<Medications> CreateMedication(int MED_ID, string MEDDSC, int STOCK);
         Task<Medications> UpdateMedication(Medications Medications);
-        Task<Medications> DeleteMedication(int USR_ID);
+        Task<Medications> DeleteMedication(int MED_ID);
 
     }
     public class MedicationsRepository : IMedicationsRepository
@@ -21,34 +21,45 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<Medications> CreateMedication(int USR_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, string USRPSW, string USR, DateTime FCHCREATION)
+        public async Task<List<Medications>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.Medications.ToListAsync();
         }
 
-        public Task<Medications> DeleteMedication(int USR_ID)
+        public async Task<Medications> GetMedication(int MED_ID)
         {
-            throw new NotImplementedException();
+            return await _db.Medications.FirstOrDefaultAsync(m => m.MED_ID == MED_ID);
         }
 
-        public Task<List<Medications>> GetAll()
+        public async Task<Medications> CreateMedication(int MED_ID, string MEDDSC, int STOCK)
         {
-            throw new NotImplementedException();
+            Medications newMedication = new Medications
+            {
+                MED_ID = MED_ID,
+                MEDDSC = MEDDSC,
+                STOCK = STOCK
+            };
+
+            await _db.Medications.AddAsync(newMedication);
+            await _db.SaveChangesAsync();
+
+            return newMedication;
         }
 
-        public Task<Medications> GetMedication(int USR_ID)
+        public async Task<Medications> UpdateMedication(Medications medications)
         {
-            throw new NotImplementedException();
+            _db.Medications.Update(medications);
+            await _db.SaveChangesAsync();
+            return medications;
         }
 
-        public Task<Medications> GetMedicationByDocument(int NUMDOC)
+        public async Task<Medications> DeleteMedication(int MED_ID)
         {
-            throw new NotImplementedException();
-        }
+            Medications medications = await GetMedication(MED_ID);
+            _db.Medications.Remove(medications);
+            await _db.SaveChangesAsync();
 
-        public Task<Medications> UpdateMedication(Medications Medications)
-        {
-            throw new NotImplementedException();
+            return medications;
         }
     }
 }

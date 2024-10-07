@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -7,8 +8,7 @@ namespace NurseNotes.Repositorio
     {
         Task<List<SuppliesPatients>> GetAll();
         Task<SuppliesPatients> GetSuppliesPatient(int SUP_ID);
-        Task<SuppliesPatients> CreateSuppliesPatient(int SUP_ID, int CANTSUP, int ICNOME_ID, int MED_ID);
-        Task<SuppliesPatients> GetSuppliesPatientByCantSup(int CANTSUP);
+        Task<SuppliesPatients> CreateSuppliesPatient(int SUP_ID, int CANTSUP, int INCOME_ID, int MED_ID);
         Task<SuppliesPatients> UpdateSuppliesPatient(SuppliesPatients suppliesPatients);
         Task<SuppliesPatients> DeleteSuppliesPatient(int SUP_ID);
 
@@ -21,34 +21,59 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<SuppliesPatients> CreateSuppliesPatient(int SUP_ID, int CANTSUP, int ICNOME_ID, int MED_ID)
+        public async Task<List<SuppliesPatients>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.SuppliesPatients.ToListAsync();
         }
 
-        public Task<SuppliesPatients> DeleteSuppliesPatient(int SUP_ID)
+        public async Task<SuppliesPatients> GetSuppliesPatient(int SUP_ID)
         {
-            throw new NotImplementedException();
+            return await _db.SuppliesPatients.FirstOrDefaultAsync(sp => sp.SUP_ID == SUP_ID);
         }
 
-        public Task<List<SuppliesPatients>> GetAll()
+        public async Task<SuppliesPatients> CreateSuppliesPatient(int SUP_ID, int CANTSUP, int INCOME_ID, int MED_ID)
         {
-            throw new NotImplementedException();
+            Incomes Incomes = await _db.Incomes.FindAsync(INCOME_ID);
+            if (Incomes == null)
+            {
+                throw new Exception("Income not found");
+            }
+            Medications Medications = await _db.Medications.FindAsync(MED_ID);
+            if (Medications == null)
+            {
+                throw new Exception("Medication not found");
+            }
+
+            SuppliesPatients newSuppliesPatient = new SuppliesPatients
+            {
+                SUP_ID = SUP_ID,
+                CANTSUP = CANTSUP,
+                INCOME_ID = INCOME_ID,
+                MED_ID = MED_ID,
+                Incomes = Incomes,
+                Medications = Medications
+            };
+
+            await _db.SuppliesPatients.AddAsync(newSuppliesPatient);
+            await _db.SaveChangesAsync();
+
+            return newSuppliesPatient;
         }
 
-        public Task<SuppliesPatients> GetSuppliesPatient(int SUP_ID)
+        public async Task<SuppliesPatients> UpdateSuppliesPatient(SuppliesPatients suppliesPatients)
         {
-            throw new NotImplementedException();
+            _db.SuppliesPatients.Update(suppliesPatients);
+            await _db.SaveChangesAsync();
+            return suppliesPatients;
         }
 
-        public Task<SuppliesPatients> GetSuppliesPatientByCantSup(int CANTSUP)
+        public async Task<SuppliesPatients> DeleteSuppliesPatient(int SUP_ID)
         {
-            throw new NotImplementedException();
-        }
+            SuppliesPatients suppliesPatients = await GetSuppliesPatient(SUP_ID);
+            _db.SuppliesPatients.Remove(suppliesPatients);
+            await _db.SaveChangesAsync();
 
-        public Task<SuppliesPatients> UpdateSuppliesPatient(SuppliesPatients suppliesPatients)
-        {
-            throw new NotImplementedException();
+            return suppliesPatients;
         }
     }
 }

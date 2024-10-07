@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -8,7 +9,6 @@ namespace NurseNotes.Repositorio
         Task<List<Signs>> GetAll();
         Task<Signs> GetSign(int SIGN_ID);
         Task<Signs> CreateSign(int SIGN_ID, int NOTE_ID, int TEMPERATURE, string PULSE);
-        Task<Signs> GetSignByNote(int NOTE_ID);
         Task<Signs> UpdateSign(Signs signs);
         Task<Signs> DeleteSign(int SIGN_ID);
 
@@ -20,35 +20,53 @@ namespace NurseNotes.Repositorio
         {
             _db = db;
         }
-
-        public Task<Signs> CreateSign(int SIGN_ID, int NOTE_ID, int TEMPERATURE, string PULSE)
+        public async Task<List<Signs>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.Signs.ToListAsync();
         }
 
-        public Task<Signs> DeleteSign(int SIGN_ID)
+        public async Task<Signs> GetSign(int SIGN_ID)
         {
-            throw new NotImplementedException();
+            return await _db.Signs.FirstOrDefaultAsync(s => s.SIGN_ID == SIGN_ID);
         }
 
-        public Task<List<Signs>> GetAll()
+        public async Task<Signs> CreateSign(int SIGN_ID, int NOTE_ID, int TEMPERATURE, string PULSE)
         {
-            throw new NotImplementedException();
+            NurseNote NurseNotes = await _db.NurseNotes.FindAsync(NOTE_ID);
+            if (NurseNotes == null)
+            {
+                throw new Exception("Note not found");
+            }
+
+            Signs newSign = new Signs
+            {
+                SIGN_ID = SIGN_ID,
+                NOTE_ID = NOTE_ID,
+                TEMPERATURE = TEMPERATURE,
+                PULSE = PULSE,
+                NurseNote = NurseNotes
+            };
+
+            await _db.Signs.AddAsync(newSign);
+            await _db.SaveChangesAsync();
+
+            return newSign;
         }
 
-        public Task<Signs> GetSign(int SIGN_ID)
+        public async Task<Signs> UpdateSign(Signs signs)
         {
-            throw new NotImplementedException();
+            _db.Signs.Update(signs);
+            await _db.SaveChangesAsync();
+            return signs;
         }
 
-        public Task<Signs> GetSignByNote(int NOTE_ID)
+        public async Task<Signs> DeleteSign(int SIGN_ID)
         {
-            throw new NotImplementedException();
-        }
+            Signs signs = await GetSign(SIGN_ID);
+            _db.Signs.Remove(signs);
+            await _db.SaveChangesAsync();
 
-        public Task<Signs> UpdateSign(Signs signs)
-        {
-            throw new NotImplementedException();
+            return signs;
         }
     }
 }

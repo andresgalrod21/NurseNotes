@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -8,7 +9,6 @@ namespace NurseNotes.Repositorio
         Task<List<Diagnosis>> GetAll();
         Task<Diagnosis> GetDiagn(int DIAG_ID);
         Task<Diagnosis> CreateDiagn(int DIAG_ID, string DIAGDSC);
-        Task<Diagnosis> GetDiagnByDiagDsc(int DIAGDSC);
         Task<Diagnosis> UpdateDiagn(Diagnosis diagnosis);
         Task<Diagnosis> DeleteDiagn(int DIAG_ID);
     }
@@ -20,34 +20,44 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<Diagnosis> CreateDiagn(int DIAG_ID, string DIAGDSC)
+        public async Task<List<Diagnosis>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.Diagnosis.ToListAsync();
         }
 
-        public Task<Diagnosis> DeleteDiagn(int DIAG_ID)
+        public async Task<Diagnosis> GetDiagn(int DIAG_ID)
         {
-            throw new NotImplementedException();
+            return await _db.Diagnosis.FirstOrDefaultAsync(d => d.DIAG_ID == DIAG_ID);
         }
 
-        public Task<List<Diagnosis>> GetAll()
+        public async Task<Diagnosis> CreateDiagn(int DIAG_ID, string DIAGDSC)
         {
-            throw new NotImplementedException();
+            Diagnosis newDiagnosis = new Diagnosis
+            {
+                DIAG_ID = DIAG_ID,
+                DIAGDSC = DIAGDSC
+            };
+
+            await _db.Diagnosis.AddAsync(newDiagnosis);
+            await _db.SaveChangesAsync();
+
+            return newDiagnosis;
         }
 
-        public Task<Diagnosis> GetDiagn(int DIAG_ID)
+        public async Task<Diagnosis> UpdateDiagn(Diagnosis diagnosis)
         {
-            throw new NotImplementedException();
+            _db.Diagnosis.Update(diagnosis);
+            await _db.SaveChangesAsync();
+            return diagnosis;
         }
 
-        public Task<Diagnosis> GetDiagnByDiagDsc(int DIAGDSC)
+        public async Task<Diagnosis> DeleteDiagn(int DIAG_ID)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Diagnosis> UpdateDiagn(Diagnosis diagnosis)
-        {
-            throw new NotImplementedException();
+            Diagnosis diagnosis = await GetDiagn(DIAG_ID);            
+            _db.Diagnosis.Remove(diagnosis);
+            await _db.SaveChangesAsync();
+            
+            return diagnosis;
         }
     }
 }

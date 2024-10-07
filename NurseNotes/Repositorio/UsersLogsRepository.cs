@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query;
 using NurseNotes.Context;
 using NurseNotes.Model;
@@ -12,7 +13,6 @@ namespace NurseNotes.Repositorio
         Task<List<UsersLogs>> GetAll();
         Task<UsersLogs> GetUsersLog(int LOG_ID);
         Task<UsersLogs> CreateUsersLog(int LOG_ID, int USR_ID, DateTime FCHMOD, string USRMOD);
-        Task<UsersLogs> GetUsersLogByUsrMod(int USRMOD);
         Task<UsersLogs> UpdateUsersLog(UsersLogs usersLogs);
         Task<UsersLogs> DeleteUsersLog(int LOG_ID);
     }
@@ -24,35 +24,55 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<UsersLogs> CreateUsersLog(int LOG_ID, int USR_ID, DateTime FCHMOD, string USRMOD)
+        public async Task<List<UsersLogs>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.UsersLogs.ToListAsync();
         }
 
-        public Task<UsersLogs> DeleteUsersLog(int LOG_ID)
+        public async Task<UsersLogs> GetUsersLog(int LOG_ID)
         {
-            throw new NotImplementedException();
+            return await _db.UsersLogs.FirstOrDefaultAsync(log => log.LOG_ID == LOG_ID);
         }
 
-        public Task<List<UsersLogs>> GetAll()
+        public async Task<UsersLogs> CreateUsersLog(int LOG_ID, int USR_ID, DateTime FCHMOD, string USRMOD)
         {
-            throw new NotImplementedException();
+            Users user = await _db.Users.FindAsync(USR_ID);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            UsersLogs newLog = new UsersLogs
+            {
+                LOG_ID = LOG_ID,
+                USR_ID = USR_ID,
+                FCHMOD = FCHMOD,
+                USRMOD = USRMOD,
+                Users = user
+            };
+
+            await _db.UsersLogs.AddAsync(newLog);
+            await _db.SaveChangesAsync();
+
+            return newLog;
         }
 
-        public Task<UsersLogs> GetUsersLog(int LOG_ID)
+        public async Task<UsersLogs> UpdateUsersLog(UsersLogs usersLogs)
         {
-            throw new NotImplementedException();
+            _db.UsersLogs.Update(usersLogs);
+            await _db.SaveChangesAsync();
+            return usersLogs;
         }
 
-        public Task<UsersLogs> GetUsersLogByUsrMod(int NUMDOC)
+        public async Task<UsersLogs> DeleteUsersLog(int LOG_ID)
         {
-            throw new NotImplementedException();
+            UsersLogs usersLogs = await GetUsersLog(LOG_ID);
+            _db.UsersLogs.Remove(usersLogs);
+            await _db.SaveChangesAsync();
+
+            return usersLogs;
         }
 
-        public Task<UsersLogs> UpdateUsersLog(UsersLogs usersLogs)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

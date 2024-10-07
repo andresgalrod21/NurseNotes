@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -8,7 +9,6 @@ namespace NurseNotes.Repositorio
         Task<List<Permitions>> GetAll();
         Task<Permitions> GetPermition(int PER_ID);
         Task<Permitions> CreatePermition(int PER_ID, string PERDSC);
-        Task<Permitions> GetPermitionByPerDsc(int PERDSC);
         Task<Permitions> UpdatePermition(Permitions permitions);
         Task<Permitions> DeletePermition(int PER_ID);
 
@@ -21,34 +21,44 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<Permitions> CreatePermition(int PER_ID, string PERDSC)
+        public async Task<List<Permitions>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.Permitions.ToListAsync();
         }
 
-        public Task<Permitions> DeletePermition(int PER_ID)
+        public async Task<Permitions> GetPermition(int PER_ID)
         {
-            throw new NotImplementedException();
+            return await _db.Permitions.FirstOrDefaultAsync(p => p.PER_ID == PER_ID);
         }
 
-        public Task<List<Permitions>> GetAll()
+        public async Task<Permitions> CreatePermition(int PER_ID, string PERDSC)
         {
-            throw new NotImplementedException();
+            Permitions newPermition = new Permitions
+            {
+                PER_ID = PER_ID,
+                PERDSC = PERDSC
+            };
+
+            await _db.Permitions.AddAsync(newPermition);
+            await _db.SaveChangesAsync();
+
+            return newPermition;
         }
 
-        public Task<Permitions> GetPermition(int PER_ID)
+        public async Task<Permitions> UpdatePermition(Permitions permitions)
         {
-            throw new NotImplementedException();
+            _db.Permitions.Update(permitions);
+            await _db.SaveChangesAsync();
+            return permitions;
         }
 
-        public Task<Permitions> GetPermitionByPerDsc(int PERDSC)
+        public async Task<Permitions> DeletePermition(int PER_ID)
         {
-            throw new NotImplementedException();
-        }
+            Permitions permitions = await GetPermition(PER_ID);
+            _db.Permitions.Remove(permitions);
+            await _db.SaveChangesAsync();
 
-        public Task<Permitions> UpdatePermition(Permitions permitions)
-        {
-            throw new NotImplementedException();
+            return permitions;
         }
     }
 }

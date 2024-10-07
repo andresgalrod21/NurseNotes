@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -8,7 +9,6 @@ namespace NurseNotes.Repositorio
         Task<List<Specialities>> GetAll();
         Task<Specialities> GetSpecialitie(int SPEC_ID);
         Task<Specialities> CreateSpecialitie(int SPEC_ID, string SPECDSC);
-        Task<Specialities> GetSpecialitieBySpecDsc(int SPECDSC);
         Task<Specialities> UpdateSpecialitie(Specialities specialities);
         Task<Specialities> DeleteSpecialitie(int SPEC_ID);
 
@@ -21,34 +21,44 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<Specialities> CreateSpecialitie(int SPEC_ID, string SPECDSC)
+        public async Task<List<Specialities>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.Specialities.ToListAsync();
         }
 
-        public Task<Specialities> DeleteSpecialitie(int SPEC_ID)
+        public async Task<Specialities> GetSpecialitie(int SPEC_ID)
         {
-            throw new NotImplementedException();
+            return await _db.Specialities.FirstOrDefaultAsync(s => s.SPEC_ID == SPEC_ID);
         }
 
-        public Task<List<Specialities>> GetAll()
+        public async Task<Specialities> CreateSpecialitie(int SPEC_ID, string SPECDSC)
         {
-            throw new NotImplementedException();
+            Specialities newSpeciality = new Specialities
+            {
+                SPEC_ID = SPEC_ID,
+                SPECDSC = SPECDSC
+            };
+
+            await _db.Specialities.AddAsync(newSpeciality);
+            await _db.SaveChangesAsync();
+
+            return newSpeciality;
         }
 
-        public Task<Specialities> GetSpecialitie(int SPEC_ID)
+        public async Task<Specialities> UpdateSpecialitie(Specialities specialities)
         {
-            throw new NotImplementedException();
+            _db.Specialities.Update(specialities);
+            await _db.SaveChangesAsync();
+            return specialities;
         }
 
-        public Task<Specialities> GetSpecialitieBySpecDsc(int SPECDSC)
+        public async Task<Specialities> DeleteSpecialitie(int SPEC_ID)
         {
-            throw new NotImplementedException();
-        }
+            Specialities specialities = await GetSpecialitie(SPEC_ID);
+            _db.Specialities.Remove(specialities);
+            await _db.SaveChangesAsync();
 
-        public Task<Specialities> UpdateSpecialitie(Specialities specialities)
-        {
-            throw new NotImplementedException();
+            return specialities;
         }
     }
 }

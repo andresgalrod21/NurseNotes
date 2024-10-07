@@ -27,7 +27,11 @@ namespace NurseNotes.Context
         public DbSet<PerXGroups> PerXGroups { get; set; }
         public DbSet<Signs> Signs { get; set; }
         public DbSet<Specialities> Specialities { get; set; }
-        public DbSet<Staff> Staffs { get; set; }
+        public DbSet<Staff> Staff { get; set; }
+        public DbSet<TipDocs> TipDocs { get; set; }
+        public DbSet<Headquearters> Headquearters { get; set; }
+        public DbSet<SuppliesPatients> SuppliesPatients { get; set; }
+
 
         //public DbSet<UserTIpe> UsersTIpe { get; set; }
 

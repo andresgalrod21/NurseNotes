@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -8,7 +9,6 @@ namespace NurseNotes.Repositorio
         Task<List<TipDocs>> GetAll();
         Task<TipDocs> GetTipDoc(int TIPDOC_ID);
         Task<TipDocs> CreateTipDoc(int TIPDOC_ID, string TIPDOCDSC);
-        Task<TipDocs> GetTipDocByTipDocDsc(int TIPDOCDSC);
         Task<TipDocs> UpdateTipDoc(TipDocs tipDocs);
         Task<TipDocs> DeleteTipDoc(int TIPDOC_ID);
 
@@ -21,34 +21,43 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<TipDocs> CreateTipDoc(int TIPDOC_ID, string TIPDOCDSC)
+        public async Task<List<TipDocs>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.TipDocs.ToListAsync();
         }
 
-        public Task<TipDocs> DeleteTipDoc(int TIPDOC_ID)
+        public async Task<TipDocs> GetTipDoc(int TIPDOC_ID)
         {
-            throw new NotImplementedException();
+            return await _db.TipDocs.FirstOrDefaultAsync(doc => doc.TIPDOC_ID == TIPDOC_ID);
         }
 
-        public Task<List<TipDocs>> GetAll()
+        public async Task<TipDocs> CreateTipDoc(int TIPDOC_ID, string TIPDOCDSC)
         {
-            throw new NotImplementedException();
+            TipDocs newTipDoc = new TipDocs
+            {
+                TIPDOC_ID = TIPDOC_ID,
+                TIPDOCDSC = TIPDOCDSC
+            };
+
+            await _db.TipDocs.AddAsync(newTipDoc);
+            await _db.SaveChangesAsync();
+
+            return newTipDoc;
         }
 
-        public Task<TipDocs> GetTipDoc(int TIPDOC_ID)
+        public async Task<TipDocs> UpdateTipDoc(TipDocs tipDocs)
         {
-            throw new NotImplementedException();
+            _db.TipDocs.Update(tipDocs);
+            await _db.SaveChangesAsync();
+            return tipDocs;
         }
 
-        public Task<TipDocs> GetTipDocByTipDocDsc(int NUMDOC)
+        public async Task<TipDocs> DeleteTipDoc(int TIPDOC_ID)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<TipDocs> UpdateTipDoc(TipDocs tipDocs)
-        {
-            throw new NotImplementedException();
+            TipDocs tipDocs = await GetTipDoc(TIPDOC_ID);
+            _db.TipDocs.Remove(tipDocs);
+            await _db.SaveChangesAsync();
+            return tipDocs;
         }
     }
 }

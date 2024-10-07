@@ -1,4 +1,5 @@
-﻿using NurseNotes.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
@@ -7,8 +8,7 @@ namespace NurseNotes.Repositorio
     {
         Task<List<Staff>> GetAll();
         Task<Staff> GetStaf(int STAFF_ID);
-        Task<Staff> CreateStaf(int STAFF_ID, string STAFFDSC, int SPEC_ID, int HEADQ_ID, int USR_ID);
-        Task<Staff> GetStafByStaffDsc(int STAFFDSC);
+        Task<Staff> CreateStaf(int STAFF_ID, string MEDSTAFF, int SPEC_ID, int HEADQ_ID, int USR_ID);
         Task<Staff> UpdateStaf(Staff Staff);
         Task<Staff> DeleteStaf(int STAFF_ID);
 
@@ -21,34 +21,69 @@ namespace NurseNotes.Repositorio
             _db = db;
         }
 
-        public Task<Staff> CreateStaf(int STAFF_ID, string STAFFDSC, int SPEC_ID, int HEADQ_ID, int USR_ID)
+        public async Task<List<Staff>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _db.Staff.ToListAsync();
         }
 
-        public Task<Staff> DeleteStaf(int STAFF_ID)
+        public async Task<Staff> GetStaf(int STAFF_ID)
         {
-            throw new NotImplementedException();
+            return await _db.Staff.FirstOrDefaultAsync(s => s.STAFF_ID == STAFF_ID);
         }
 
-        public Task<List<Staff>> GetAll()
+        public async Task<Staff> CreateStaf(int STAFF_ID, string MEDSTAFF, int SPEC_ID, int HEADQ_ID, int USR_ID)
         {
-            throw new NotImplementedException();
+            Specialities Specialities = await _db.Specialities.FindAsync(SPEC_ID);
+            if (Specialities == null)
+            {
+                throw new Exception("Specialitie not found");
+            }
+
+            Headquearters Headquearters = await _db.Headquearters.FindAsync(HEADQ_ID);
+            if (Headquearters == null)
+            {
+                throw new Exception("Headquearter not found");
+            }
+
+            Users Users = await _db.Users.FindAsync(USR_ID);
+            if (Users == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            Staff newStaff = new Staff
+            {
+                STAFF_ID = STAFF_ID,
+                MEDSTAFF = MEDSTAFF,
+                SPEC_ID = SPEC_ID,
+                HEADQ_ID = HEADQ_ID,
+                USR_ID = USR_ID,
+                Specialities = Specialities,
+                Headquearters = Headquearters,
+                Users = Users
+            };
+
+            await _db.Staff.AddAsync(newStaff);
+            await _db.SaveChangesAsync();
+
+            return newStaff;
         }
 
-        public Task<Staff> GetStaf(int STAFF_ID)
+        public async Task<Staff> UpdateStaf(Staff staff)
         {
-            throw new NotImplementedException();
+            _db.Staff.Update(staff);
+            await _db.SaveChangesAsync();
+            return staff;
         }
 
-        public Task<Staff> GetStafByStaffDsc(int NUMDOC)
+        public async Task<Staff> DeleteStaf(int STAFF_ID)
         {
-            throw new NotImplementedException();
+            Staff staff = await GetStaf(STAFF_ID);
+            _db.Staff.Remove(staff);
+            await _db.SaveChangesAsync();
+
+            return staff;
         }
 
-        public Task<Staff> UpdateStaf(Staff Staff)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
