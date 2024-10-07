@@ -32,7 +32,7 @@ builder.Services.AddScoped<IPatientRecordsRepository, PatientRecordsRepository>(
 builder.Services.AddScoped<IPatientsRepository, PatientsRepository>();
 builder.Services.AddScoped<IPermitionsRepository, PermitionsRepository>();
 builder.Services.AddScoped<IPerXGroupsRepository, PerXGroupsRepository>();
-builder.Services.AddScoped<ISignsRepository, SignsRepository>();
+builder.Services.AddScoped<ISignsRepository, SignsRepository>(); 
 builder.Services.AddScoped<ISpecialitiesRepository, SpecialitiesRepository>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<ISuppliesPatientsRepository, SuppliesPatientsRepository>();
