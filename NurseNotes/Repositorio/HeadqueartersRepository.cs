@@ -4,7 +4,7 @@ using NurseNotes.Model;
 
 namespace NurseNotes.Repositorio
 {
-    public interface IHeadquearters
+    public interface IHeadqueartersRepository
     {
         Task<List<Headquearters>> GetAll();
         Task<Headquearters> GetHeadquearter(int HEADQ_ID);
@@ -13,7 +13,7 @@ namespace NurseNotes.Repositorio
         Task<Headquearters> DeleteHeadquearter(int HEADQ_ID);
 
     }
-    public class HeadqueartersRepository : IHeadquearters
+    public class HeadqueartersRepository : IHeadqueartersRepository
     {
         private readonly TestDbNurseNotes _db;
         public HeadqueartersRepository(TestDbNurseNotes db)
