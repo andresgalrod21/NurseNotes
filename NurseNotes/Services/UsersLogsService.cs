@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using NurseNotes.Model;
+using NurseNotes.Repositorio;
 
 namespace NurseNotes.Services
 {
-    public interface IUsersLogsRepository
+    public interface IUsersLogsService
     {
         Task<List<UsersLogs>> GetAll();
         Task<UsersLogs> GetUsersLog(int LOG_ID);
@@ -12,7 +13,7 @@ namespace NurseNotes.Services
         Task<UsersLogs> UpdateUsersLog(UsersLogs usersLog);
         Task<UsersLogs> DeleteUsersLog(int LOG_ID);
     }
-    public class UsersLogsService : IUsersLogsRepository
+    public class UsersLogsService : IUsersLogsService
     {
         readonly IUsersLogsRepository _usersLogsRepository;
         public UsersLogsService(IUsersLogsRepository usersLogsRepository)
@@ -32,7 +33,9 @@ namespace NurseNotes.Services
 
         public async Task<UsersLogs> CreateUsersLog(UsersLogs usersLog)
         {
-            return await _usersLogsRepository.CreateUsersLog(usersLog);
+            return await _usersLogsRepository.CreateUsersLog(
+                usersLog.LOG_ID, usersLog.USR_ID, usersLog.FCHMOD,
+                usersLog.USRMOD);
         }
 
         public async Task<UsersLogs> UpdateUsersLog(UsersLogs usersLog)
