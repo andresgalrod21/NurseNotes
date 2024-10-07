@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NurseNotes.Context;
 
@@ -11,9 +12,11 @@ using NurseNotes.Context;
 namespace NurseNotes.Migrations
 {
     [DbContext(typeof(TestDbNurseNotes))]
-    partial class TestDbNurseNotesModelSnapshot : ModelSnapshot
+    [Migration("20241007001958_LastUpdateTables")]
+    partial class LastUpdateTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("DIAG_ID");
 
-                    b.ToTable("Diagnosis", (string)null);
+                    b.ToTable("Diagnosis");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Folios", b =>
@@ -72,7 +75,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("USR_ID");
 
-                    b.ToTable("Folios", (string)null);
+                    b.ToTable("Folios");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Groups", b =>
@@ -89,7 +92,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("GRP_ID");
 
-                    b.ToTable("Groups", (string)null);
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Headquearters", b =>
@@ -106,7 +109,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("HEADQ_ID");
 
-                    b.ToTable("Headquearters", (string)null);
+                    b.ToTable("Headquearters");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Incomes", b =>
@@ -139,7 +142,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("USR_ID");
 
-                    b.ToTable("Incomes", (string)null);
+                    b.ToTable("Incomes");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Medications", b =>
@@ -159,7 +162,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("MED_ID");
 
-                    b.ToTable("Medications", (string)null);
+                    b.ToTable("Medications");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.NurseNote", b =>
@@ -206,7 +209,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("USR_ID");
 
-                    b.ToTable("NurseNotes", (string)null);
+                    b.ToTable("NurseNotes");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.PatientRecords", b =>
@@ -240,7 +243,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("INCOME_ID");
 
-                    b.ToTable("PatientRecords", (string)null);
+                    b.ToTable("PatientRecords");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Patients", b =>
@@ -278,7 +281,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("TIPDOC_ID");
 
-                    b.ToTable("Patients", (string)null);
+                    b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.PerXGroups", b =>
@@ -301,7 +304,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("PER_ID");
 
-                    b.ToTable("PerXGroups", (string)null);
+                    b.ToTable("PerXGroups");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Permitions", b =>
@@ -318,7 +321,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("PER_ID");
 
-                    b.ToTable("Permitions", (string)null);
+                    b.ToTable("Permitions");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Signs", b =>
@@ -343,7 +346,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("NOTE_ID");
 
-                    b.ToTable("Signs", (string)null);
+                    b.ToTable("Signs");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Specialities", b =>
@@ -360,7 +363,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("SPEC_ID");
 
-                    b.ToTable("Specialities", (string)null);
+                    b.ToTable("Specialities");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Staff", b =>
@@ -392,7 +395,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("USR_ID");
 
-                    b.ToTable("Staff", (string)null);
+                    b.ToTable("Staff");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.SuppliesPatients", b =>
@@ -418,7 +421,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("MED_ID");
 
-                    b.ToTable("SuppliesPatients", (string)null);
+                    b.ToTable("SuppliesPatients");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.TipDocs", b =>
@@ -435,7 +438,7 @@ namespace NurseNotes.Migrations
 
                     b.HasKey("TIPDOC_ID");
 
-                    b.ToTable("TipDocs", (string)null);
+                    b.ToTable("TipDocs");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Users", b =>
@@ -481,7 +484,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("GRP_ID");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.UsersLogs", b =>
@@ -508,7 +511,7 @@ namespace NurseNotes.Migrations
 
                     b.HasIndex("USR_ID");
 
-                    b.ToTable("UsersLogs", (string)null);
+                    b.ToTable("UsersLogs");
                 });
 
             modelBuilder.Entity("NurseNotes.Model.Folios", b =>

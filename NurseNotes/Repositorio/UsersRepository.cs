@@ -1,47 +1,84 @@
-﻿
-
+﻿using Microsoft.EntityFrameworkCore;
+using NurseNotes.Context;
 using NurseNotes.Model;
+using System.Numerics;
 
 namespace NurseNotes.Repositorio
 {
     public interface IUsersRepository
     {
-        Task<IEnumerable<Users>> getallsubjectsAsync();
-        Task<Users> getsubjectbyIdAsync(int USR_ID);
-        Task CreateUsersAsync(Users Users);
-        Task UpdateUsersAsync(Users Users);
-        Task SoftDeleteUsersAsync(Users Users);
+        Task<List<Users>> GetAll();
+        Task<Users> GetUserById(int USR_ID);
+        Task<Users> CreateUser(int USR_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, string USRPSW, string USR, DateTime FCHCREATION, int GRP_ID);
+        Task<Users> UpdateUser(Users users);
+        Task<Users> DeleteUser(int USR_ID);
+
     }
+        public class UsersRepository : IUsersRepository
+        {
+            private readonly TestDbNurseNotes _db;
+            public UsersRepository(TestDbNurseNotes db)
+            {
+                _db = db;
+            }
 
-    public class UserssRepository
-    {
-        public UserssRepository()
+        public async Task<List<Users>> GetAll()
         {
-            
-        }
-        public Task CreateUsersAsync(Users Users)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Users>> getallsubjectsAsync()
-        {
-            throw new NotImplementedException();
+            return await _db.Users.ToListAsync();
         }
 
-        public Task<Users> getsubjectbyIdAsync(int USR_ID)
+        public async Task<Users> GetUserById(int USR_ID)
         {
-            throw new NotImplementedException();
+            return await _db.Users.FirstOrDefaultAsync(u => u.USR_ID == USR_ID);
         }
 
-        public Task SoftDeleteUsersAsync(Users Users)
+        public async Task<Users> CreateUser(int USR_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, string USRPSW, string USR, DateTime FCHCREATION, int GRP_ID)
         {
-            throw new NotImplementedException();
+            Groups group = await _db.Groups.FindAsync(GRP_ID);
+            if (group == null)
+            {
+                throw new Exception("Group not found");
+            }
+
+            Users newUser = new Users
+            {
+                USR_ID = USR_ID,
+                NAME = NAME,
+                LASTNAME = LASTNAME,
+                TIPDOC = TIPDOC,
+                NUMDOC = NUMDOC,
+                USRPSW = USRPSW,
+                USR = USR,
+                FCHCREATION = FCHCREATION,
+                GRP_ID = GRP_ID,
+                Group = group
+            };
+
+            await _db.Users.AddAsync(newUser);
+            await _db.SaveChangesAsync();
+
+            return newUser;
         }
 
-        public Task UpdateUsersAsync(Users Users)
+        public async Task<Users> UpdateUser(Users users)
         {
-            throw new NotImplementedException();
+            _db.Users.Update(users);
+            await _db.SaveChangesAsync();
+            return users;
         }
+
+        public async Task<Users> DeleteUser(int USR_ID)
+        {
+            Users users = await GetUserById(USR_ID);
+
+            _db.Users.Update(users);
+            await _db.SaveChangesAsync();
+            return users;
+        }
+
+
+        //----------------------------------------------
+
     }
+    
 }
