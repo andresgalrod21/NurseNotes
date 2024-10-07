@@ -21,55 +21,55 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region AppRepository
-builder.Services.AddScoped<IDiagnosisRepository, IDiagnosisRepository>();
-builder.Services.AddScoped<IFoliosRepository, IFoliosRepository>();
-builder.Services.AddScoped<IGroupsRepository, IGroupsRepository>();
-builder.Services.AddScoped<IHeadqueartersRepository, IHeadqueartersRepository>();
-builder.Services.AddScoped<IIncomesRepository, IIncomesRepository>();
-builder.Services.AddScoped<IMedicationsRepository, IMedicationsRepository>();
-builder.Services.AddScoped<INurseNoteRepository, INurseNoteRepository>();
-builder.Services.AddScoped<IPatientRecordsRepository, IPatientRecordsRepository>();
-builder.Services.AddScoped<IPatientsRepository, IPatientsRepository>();
-builder.Services.AddScoped<IPermitionsRepository, IPermitionsRepository>();
-builder.Services.AddScoped<IPerXGroupsRepository, IPerXGroupsRepository>();
-builder.Services.AddScoped<ISignsRepository, ISignsRepository>();
-builder.Services.AddScoped<ISpecialitiesRepository, ISpecialitiesRepository>();
-builder.Services.AddScoped<IStaffRepository, IStaffRepository>();
-builder.Services.AddScoped<ISuppliesPatientsRepository, ISuppliesPatientsRepository>();
-builder.Services.AddScoped<ITipDocsRepository, ITipDocsRepository>();
-builder.Services.AddScoped<IUsersLogsRepository, IUsersLogsRepository>();
-builder.Services.AddScoped<IUsersRepository, IUsersRepository>();
+builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
+builder.Services.AddScoped<IFoliosRepository, FoliosRepository>();
+builder.Services.AddScoped<IGroupsRepository, GroupsRepository>();
+builder.Services.AddScoped<IHeadqueartersRepository, HeadqueartersRepository>();
+builder.Services.AddScoped<IIncomesRepository, IncomesRepository>();
+builder.Services.AddScoped<IMedicationsRepository, MedicationsRepository>();
+builder.Services.AddScoped<INurseNoteRepository, NurseNoteRepository>();
+builder.Services.AddScoped<IPatientRecordsRepository, PatientRecordsRepository>();
+builder.Services.AddScoped<IPatientsRepository, PatientsRepository>();
+builder.Services.AddScoped<IPermitionsRepository, PermitionsRepository>();
+builder.Services.AddScoped<IPerXGroupsRepository, PerXGroupsRepository>();
+builder.Services.AddScoped<ISignsRepository, SignsRepository>();
+builder.Services.AddScoped<ISpecialitiesRepository, SpecialitiesRepository>();
+builder.Services.AddScoped<IStaffRepository, StaffRepository>();
+builder.Services.AddScoped<ISuppliesPatientsRepository, SuppliesPatientsRepository>();
+builder.Services.AddScoped<ITipDocsRepository, TipDocsRepository>();
+builder.Services.AddScoped<IUsersLogsRepository, UsersLogsRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 #endregion                
 
 #region AppService
-builder.Services.AddScoped<IDiagnosisService, IDiagnosisService>();
-builder.Services.AddScoped<IFoliosService, IFoliosService>();
-builder.Services.AddScoped<IGroupsService, IGroupsService>();
-builder.Services.AddScoped<IHeadqueartersService, IHeadqueartersService>();
-builder.Services.AddScoped<IIncomesService, IIncomesService>();
-builder.Services.AddScoped<IMedicationsService, IMedicationsService>();
-builder.Services.AddScoped<INurseNoteService, INurseNoteService>(); 
-builder.Services.AddScoped<IPatientRecordsService, IPatientRecordsService>();
-builder.Services.AddScoped<IPatientsService, IPatientsService>();
-builder.Services.AddScoped<IPermitionsService, IPermitionsService>();
-builder.Services.AddScoped<IPerXGroupsRepository, IPerXGroupsRepository>();
-builder.Services.AddScoped<ISignsService, ISignsService>();
-builder.Services.AddScoped<ISpecialitiesService, ISpecialitiesService>();
-builder.Services.AddScoped<IStaffService, IStaffService>();
-builder.Services.AddScoped<ISuppliesPatientsService, ISuppliesPatientsService>();
-builder.Services.AddScoped<ITipDocsService, ITipDocsService>();
-builder.Services.AddScoped<IUsersLogsService, IUsersLogsService>();
-builder.Services.AddScoped<IUsersService, IUsersService>();
+builder.Services.AddScoped<IDiagnosisService, DiagnosisService>();
+builder.Services.AddScoped<IFoliosService, FoliosService>();
+builder.Services.AddScoped<IGroupsService, GroupsService>();
+builder.Services.AddScoped<IHeadqueartersService, HeadqueartersService>();
+builder.Services.AddScoped<IIncomesService, IncomesService>();
+builder.Services.AddScoped<IMedicationsService, MedicationsService>();
+builder.Services.AddScoped<INurseNoteService, NurseNoteService>();
+builder.Services.AddScoped<IPatientRecordsService, PatientRecordsService>();
+builder.Services.AddScoped<IPatientsService, PatientsService>();
+builder.Services.AddScoped<IPermitionsService, PermitionsService>();
+builder.Services.AddScoped<IPerXGroupsRepository, PerXGroupsRepository>();
+builder.Services.AddScoped<ISignsService, SignsService>();
+builder.Services.AddScoped<ISpecialitiesService, SpecialitiesService>();
+builder.Services.AddScoped<IStaffService, StaffService>();
+builder.Services.AddScoped<ISuppliesPatientsService, SuppliesPatientsService>();
+builder.Services.AddScoped<ITipDocsService, TipDocsService>();
+builder.Services.AddScoped<IUsersLogsService, UsersLogsService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
 #endregion                
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 
 app.UseHttpsRedirection();
 

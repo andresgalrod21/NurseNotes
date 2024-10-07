@@ -14,7 +14,7 @@ namespace NurseNotes.Services
         Task<TipDocs> DeleteTipDoc(int TIPDOC_ID);
 
     }
-    public class TipDocsService 
+    public class TipDocsService : ITipDocsService
     {
         readonly ITipDocsRepository _tipDocsRepository;
 
