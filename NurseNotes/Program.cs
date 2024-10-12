@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NurseNotes.Context;
 using NurseNotes.Model;
 using NurseNotes.Repositorio;
@@ -17,8 +19,16 @@ builder.Services.AddDbContext<TestDbNurseNotes>(options => options.UseSqlServer(
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("corsPolicy", policy =>
+    {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+    });
+});
 
 #region AppRepository
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
@@ -62,14 +72,18 @@ builder.Services.AddScoped<IUsersLogsService, UsersLogsService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 #endregion                
 
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseHttpsRedirection();
 
