@@ -33,7 +33,7 @@ namespace NurseNotes.Repositorio
 
         public async Task<Patients> CreatePatient(int PATIENT_ID, string NAME, string LASTNAME, int TIPDOC_ID, int NUMDOC, int AGE, int NUMCONTACT, string? MAIL)
         {
-            TipDocs Tipdocs = await _db.TipDocs.FindAsync(PATIENT_ID);
+            TipDocs Tipdocs = await _db.TipDocs.FindAsync(TIPDOC_ID);
             if (Tipdocs == null)
             {
                 throw new Exception("Tipdoc not found");

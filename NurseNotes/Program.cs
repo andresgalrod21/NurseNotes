@@ -62,7 +62,7 @@ builder.Services.AddScoped<INurseNoteService, NurseNoteService>();
 builder.Services.AddScoped<IPatientRecordsService, PatientRecordsService>();
 builder.Services.AddScoped<IPatientsService, PatientsService>();
 builder.Services.AddScoped<IPermitionsService, PermitionsService>();
-builder.Services.AddScoped<IPerXGroupsRepository, PerXGroupsRepository>();
+builder.Services.AddScoped<IPerXGroupsService, PerXGroupsService>();
 builder.Services.AddScoped<ISignsService, SignsService>();
 builder.Services.AddScoped<ISpecialitiesService, SpecialitiesService>();
 builder.Services.AddScoped<IStaffService, StaffService>();
