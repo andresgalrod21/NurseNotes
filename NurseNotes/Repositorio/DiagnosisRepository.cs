@@ -46,9 +46,18 @@ namespace NurseNotes.Repositorio
 
         public async Task<Diagnosis> UpdateDiagn(Diagnosis diagnosis)
         {
-            _db.Diagnosis.Update(diagnosis);
+            var existingDiagnosis = await _db.Diagnosis.FirstOrDefaultAsync(d => d.DIAG_ID == diagnosis.DIAG_ID);
+
+            if (existingDiagnosis == null)
+            {
+                throw new Exception("Diagnosis cannot be updated. Diagnosis not found.");
+            }
+
+            existingDiagnosis.DIAGDSC = diagnosis.DIAGDSC; // Solo actualiza los campos necesarios
+            _db.Diagnosis.Update(existingDiagnosis);
             await _db.SaveChangesAsync();
-            return diagnosis;
+
+            return existingDiagnosis;
         }
 
         public async Task<Diagnosis> DeleteDiagn(int DIAG_ID)

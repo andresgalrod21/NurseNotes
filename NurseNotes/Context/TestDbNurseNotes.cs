@@ -196,6 +196,16 @@ namespace NurseNotes.Context
             modelBuilder.Entity<PerXGroups>(entity =>
             {
                 entity.HasKey(pg => pg.PG_ID);
+
+                entity.HasOne(pg => pg.Groups)
+                .WithMany()
+                .HasForeignKey(pg => pg.GRP_ID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(pg => pg.Permitions)
+                .WithMany()
+                .HasForeignKey(pg => pg.PER_ID)
+                .OnDelete(DeleteBehavior.Restrict);
             });
 
             //SIGNS
