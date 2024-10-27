@@ -31,6 +31,7 @@ namespace NurseNotes.Context
         public DbSet<TipDocs> TipDocs { get; set; }
         public DbSet<Headquearters> Headquearters { get; set; }
         public DbSet<SuppliesPatients> SuppliesPatients { get; set; }
+        public DbSet<Scores> Scores { get; set; }
 
 
         //public DbSet<UserTIpe> UsersTIpe { get; set; }
@@ -236,6 +237,12 @@ namespace NurseNotes.Context
             modelBuilder.Entity<TipDocs>(entity =>
             {
                 entity.HasKey(tp => tp.TIPDOC_ID);
+            });
+
+            //SCORES
+            modelBuilder.Entity<Scores>(entity =>
+            {
+                entity.HasKey(sc => sc.SCORE_ID);
             });
 
         }

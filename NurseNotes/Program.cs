@@ -49,6 +49,7 @@ builder.Services.AddScoped<ISuppliesPatientsRepository, SuppliesPatientsReposito
 builder.Services.AddScoped<ITipDocsRepository, TipDocsRepository>();
 builder.Services.AddScoped<IUsersLogsRepository, UsersLogsRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IScoresRepository, ScoresRepository>();
 #endregion                
 
 #region AppService
@@ -70,6 +71,10 @@ builder.Services.AddScoped<ISuppliesPatientsService, SuppliesPatientsService>();
 builder.Services.AddScoped<ITipDocsService, TipDocsService>();
 builder.Services.AddScoped<IUsersLogsService, UsersLogsService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IScoresService, ScoresService>();
+
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 #endregion                
 
 builder.Services.AddControllers();
