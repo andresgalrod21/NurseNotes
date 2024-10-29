@@ -5,31 +5,25 @@ using NurseNotes.Context;
 using NurseNotes.Model;
 using NurseNotes.Repositorio;
 using NurseNotes.Services;
-//using static NurseNotes.Repositorio.IUsersRepository;
-//using static NurseNotes.Services.ISpecialitiesService;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Configura la cadena de conexión a la base de datos
 var constring = builder.Configuration.GetConnectionString("Connection");
 builder.Services.AddDbContext<TestDbNurseNotes>(options => options.UseSqlServer(constring));
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
+// Configuración de CORS para permitir acceso desde el frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("corsPolicy", policy =>
     {
-        policy.AllowAnyOrigin();
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
+// Registro de Repositorios
 #region AppRepository
 builder.Services.AddScoped<IDiagnosisRepository, DiagnosisRepository>();
 builder.Services.AddScoped<IFoliosRepository, FoliosRepository>();
@@ -42,7 +36,7 @@ builder.Services.AddScoped<IPatientRecordsRepository, PatientRecordsRepository>(
 builder.Services.AddScoped<IPatientsRepository, PatientsRepository>();
 builder.Services.AddScoped<IPermitionsRepository, PermitionsRepository>();
 builder.Services.AddScoped<IPerXGroupsRepository, PerXGroupsRepository>();
-builder.Services.AddScoped<ISignsRepository, SignsRepository>(); 
+builder.Services.AddScoped<ISignsRepository, SignsRepository>();
 builder.Services.AddScoped<ISpecialitiesRepository, SpecialitiesRepository>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<ISuppliesPatientsRepository, SuppliesPatientsRepository>();
@@ -52,6 +46,7 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IScoresRepository, ScoresRepository>();
 #endregion                
 
+// Registro de Servicios
 #region AppService
 builder.Services.AddScoped<IDiagnosisService, DiagnosisService>();
 builder.Services.AddScoped<IFoliosService, FoliosService>();
@@ -73,29 +68,31 @@ builder.Services.AddScoped<IUsersLogsService, UsersLogsService>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IScoresService, ScoresService>();
 
-
+// Servicio de Autenticación
 builder.Services.AddScoped<IAuthService, AuthService>();
 #endregion                
 
+// Agrega controladores y Swagger para documentación de la API
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Configuración de CORS
 app.UseCors("corsPolicy");
 
-// Configure the HTTP request pipeline.
+// Configuración del pipeline de peticiones HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Comentado temporalmente si tienes problemas de redirección en localhost
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

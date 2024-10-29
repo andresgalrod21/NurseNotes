@@ -2,6 +2,7 @@
 using NurseNotes.Context;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace NurseNotes.Services
 {
@@ -21,9 +22,32 @@ namespace NurseNotes.Services
 
         public async Task<Users?> AuthenticateUserAsync(string username, string password)
         {
-            // Busca al usuario con las credenciales proporcionadas
-            return await _context.Users
-                                 .FirstOrDefaultAsync(u => u.USR == username && u.USRPSW == password);
+            // Busca al usuario por nombre de usuario
+            var user = await _context.Users
+                                      .FirstOrDefaultAsync(u => u.USR == username);
+
+            if (user == null)
+            {
+                return null; // Usuario no encontrado
+            }
+
+            // Decodifica la contraseña almacenada en Base64
+            string decodedPassword = DecodePassword(user.USRPSW);
+
+            // Compara la contraseña ingresada con la decodificada
+            if (decodedPassword != password)
+            {
+                return null; // Contraseña incorrecta
+            }
+
+            return user; // Usuario autenticado correctamente
+        }
+
+        private string DecodePassword(string encodedPassword)
+        {
+            byte[] passwordBytes = Convert.FromBase64String(encodedPassword);
+            return Encoding.UTF8.GetString(passwordBytes);
         }
     }
 }
+

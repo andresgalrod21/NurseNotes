@@ -5,7 +5,7 @@
 namespace NurseNotes.Migrations
 {
     /// <inheritdoc />
-    public partial class TableScores : Migration
+    public partial class LoginController : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -22,12 +22,11 @@ namespace NurseNotes.Controllers
 
             if (user == null)
             {
-                return Unauthorized(new { message = "Usuario o contraseña incorrectos" });
+                return Unauthorized(new { success = false, message = "Usuario o contraseña incorrectos" });
             }
 
-            // Si deseas implementar JWT, aquí generarías y retornarías el token
-            // Por ahora solo retornaremos el usuario para simplificar el ejemplo
-            return Ok(new { token = "your_generated_token_here", user });
+            // Retorna un objeto con `success: true` y los detalles del usuario cuando la autenticación es exitosa
+            return Ok(new { success = true, token = "your_generated_token_here", user });
         }
     }
 

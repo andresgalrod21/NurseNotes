@@ -12,8 +12,8 @@ using NurseNotes.Context;
 namespace NurseNotes.Migrations
 {
     [DbContext(typeof(TestDbNurseNotes))]
-    [Migration("20241024023923_TableScores")]
-    partial class TableScores
+    [Migration("20241027190130_LoginController")]
+    partial class LoginController
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
