@@ -45,7 +45,7 @@ namespace NurseNotes.Services
             return await _usersRepository.CreateUser(
                 user.USR_ID, user.NAME, user.LASTNAME,
                 user.TIPDOC, user.NUMDOC, user.USRPSW,
-                user.USR, user.FCHCREATION, user.GRP_ID
+                user.USR, user.MAIL, user.FCHCREATION, user.GRP_ID
             );
         }
 

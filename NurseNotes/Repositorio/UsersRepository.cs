@@ -9,7 +9,7 @@ namespace NurseNotes.Repositorio
     {
         Task<List<Users>> GetAll();
         Task<Users> GetUserById(int USR_ID);
-        Task<Users> CreateUser(int USR_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, string USRPSW, string USR, DateTime FCHCREATION, int GRP_ID);
+        Task<Users> CreateUser(int USR_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, string USRPSW, string USR, string MAIL, DateTime FCHCREATION, int GRP_ID);
         Task<Users> UpdateUser(Users users);
         Task<Users> DeleteUser(int USR_ID);
 
@@ -32,7 +32,7 @@ namespace NurseNotes.Repositorio
             return await _db.Users.FirstOrDefaultAsync(u => u.USR_ID == USR_ID);
         }
 
-        public async Task<Users> CreateUser(int USR_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, string USRPSW, string USR, DateTime FCHCREATION, int GRP_ID)
+        public async Task<Users> CreateUser(int USR_ID, string NAME, string LASTNAME, string TIPDOC, int NUMDOC, string USRPSW, string USR, string MAIL, DateTime FCHCREATION, int GRP_ID)
         {
             Groups group = await _db.Groups.FindAsync(GRP_ID);
             if (group == null)
@@ -49,6 +49,7 @@ namespace NurseNotes.Repositorio
                 NUMDOC = NUMDOC,
                 USRPSW = USRPSW,
                 USR = USR,
+                MAIL = MAIL,
                 FCHCREATION = FCHCREATION,
                 GRP_ID = GRP_ID,
                 Group = group

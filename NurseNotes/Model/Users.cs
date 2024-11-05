@@ -15,6 +15,7 @@ namespace NurseNotes.Model
             public required int NUMDOC { get; set; }
             public required string USRPSW { get; set; }
             public required string USR { get; set; }
+            public required string MAIL { get; set; }
             public required DateTime FCHCREATION { get; set; }
             public required int GRP_ID { get; set; }
 
