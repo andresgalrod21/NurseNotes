@@ -18,18 +18,26 @@ namespace NurseNotes.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
-            var user = await _authService.AuthenticateUserAsync(loginRequest.Username, loginRequest.Password);
+            // Autentica al usuario y obtiene el token y la información del usuario
+            var authResult = await _authService.AuthenticateUserAsync(loginRequest.Username, loginRequest.Password);
 
-            if (user == null)
+            if (authResult == null)
             {
+                // Retorna un error si la autenticación falla
                 return Unauthorized(new { success = false, message = "Usuario o contraseña incorrectos" });
             }
 
-            // Retorna un objeto con `success: true` y los detalles del usuario cuando la autenticación es exitosa
-            return Ok(new { success = true, token = "your_generated_token_here", user });
+            // Retorna un objeto con `success: true`, el token JWT, y los detalles del usuario autenticado
+            return Ok(new
+            {
+                success = true,
+                token = authResult.Token,
+                user = authResult.User
+            });
         }
     }
 
+    // Clase para la solicitud de autenticación
     public class LoginRequest
     {
         public string Username { get; set; }

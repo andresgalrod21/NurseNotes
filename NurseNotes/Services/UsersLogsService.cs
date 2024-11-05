@@ -9,13 +9,14 @@ namespace NurseNotes.Services
     {
         Task<List<UsersLogs>> GetAll();
         Task<UsersLogs> GetUsersLog(int LOG_ID);
-        Task<UsersLogs> CreateUsersLog(UsersLogs usersLog);
+        Task<UsersLogs> CreateUsersLog(UsersLogs usersLog); // Modificación: recibe objeto completo
         Task<UsersLogs> UpdateUsersLog(UsersLogs usersLog);
         Task<UsersLogs> DeleteUsersLog(int LOG_ID);
     }
+
     public class UsersLogsService : IUsersLogsService
     {
-        readonly IUsersLogsRepository _usersLogsRepository;
+        private readonly IUsersLogsRepository _usersLogsRepository;
         public UsersLogsService(IUsersLogsRepository usersLogsRepository)
         {
             _usersLogsRepository = usersLogsRepository;
@@ -33,9 +34,8 @@ namespace NurseNotes.Services
 
         public async Task<UsersLogs> CreateUsersLog(UsersLogs usersLog)
         {
-            return await _usersLogsRepository.CreateUsersLog(
-                usersLog.LOG_ID, usersLog.USR_ID, usersLog.FCHMOD,
-                usersLog.USRMOD);
+            // Modificación: Pasa el objeto completo al repositorio
+            return await _usersLogsRepository.CreateUsersLog(usersLog);
         }
 
         public async Task<UsersLogs> UpdateUsersLog(UsersLogs usersLog)

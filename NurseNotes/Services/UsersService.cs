@@ -14,6 +14,7 @@ namespace NurseNotes.Services
         Task<Users> CreateUser(Users user);
         Task<Users> UpdateUser(Users user);
         Task<Users> DeleteUser(int USR_ID);
+
     }
 
     public class UsersService : IUsersService
@@ -58,6 +59,7 @@ namespace NurseNotes.Services
         {
             return await _usersRepository.DeleteUser(USR_ID);
         }
+
 
         // Método para decodificar la contraseña Base64 (si necesitas verla en texto plano)
         //public string DecodePassword(string encodedPassword)
